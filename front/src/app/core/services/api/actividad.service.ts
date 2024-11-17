@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { ObjectId } from 'mongodb';
-import {Actividad} from "../../models/interfaces/actividad.interface";
-import {ApiResponse} from "../../models/interfaces/utils/api-response.interface";
+import {Actividad} from "../../../models/interfaces/actividad.interface";
+import {ApiResponse} from "../../../models/interfaces/utils/api-response.interface";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ActivityService {
+export class ActividadService {
   private readonly API_URL = `${environment.apiUrl}/activities`;
 
   constructor(private http: HttpClient) {}

@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import {Estado} from "../enums/state";
+import {Estado} from "../enums/estado.enum";
 
 export interface Actividad {
   id?: ObjectId;

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 import { ObjectId } from 'mongodb';
-import { Ubicacion } from '../../models/interfaces/ubicacion.interface';
-import { ApiResponse } from '../../models/interfaces/utils/api-response.interface';
+import { Ubicacion } from '../../../models/interfaces/ubicacion.interface';
+import { ApiResponse } from '../../../models/interfaces/utils/api-response.interface';
 
 @Injectable({
   providedIn: 'root'

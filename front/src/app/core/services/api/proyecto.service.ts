@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { Proyecto } from "../../models/interfaces/proyecto.interface";
-import { ApiResponse } from "../../models/interfaces/utils/api-response.interface";
+import { environment } from '../../../../environments/environment';
+import { Proyecto } from "../../../models/interfaces/proyecto.interface";
+import { ApiResponse } from "../../../models/interfaces/utils/api-response.interface";
 import { ObjectId } from 'mongodb';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProjectService {
+export class ProyectoService {
   private readonly API_URL = `${environment.apiUrl}/projects`;
 
   constructor(private http: HttpClient) {}

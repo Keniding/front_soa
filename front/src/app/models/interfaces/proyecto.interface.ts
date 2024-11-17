@@ -1,6 +1,11 @@
 import { ObjectId } from 'mongodb';
 import {Actividad} from "./actividad.interface";
-import {Estado} from "../enums/state";
+import {Estado} from "../enums/estado.enum";
+import {Ubicacion} from "./ubicacion.interface";
+import {Hito} from "./hito.interface";
+import {Recurso} from "./recurso.interface";
+import {Riesgo} from "./riesgo.interface";
+import {Personal} from "./personal.interface";
 
 export interface Proyecto {
   id: ObjectId;
@@ -20,19 +25,4 @@ export interface Proyecto {
 }
 
 export interface Tipo {
-}
-
-export interface Recurso {
-}
-
-export interface Ubicacion {
-}
-
-export interface Personal {
-}
-
-export interface Hito {
-}
-
-export interface Riesgo {
 }
