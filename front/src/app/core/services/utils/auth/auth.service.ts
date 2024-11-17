@@ -2,9 +2,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, from } from 'rxjs';
-import { environment } from "../../../../environments/environment";
-import { AuthRequest, AuthResponse } from "../../../models/interfaces/utils/auth.interface";
-import { AuthStateService } from '../state/auth-state.service';
+import { environment } from "../../../../../environments/environment";
+import { AuthRequest, AuthResponse } from "../../../../models/interfaces/utils/auth.interface";
+import { AuthStateService } from '../../state/auth-state.service';
 
 @Injectable({
   providedIn: 'root'

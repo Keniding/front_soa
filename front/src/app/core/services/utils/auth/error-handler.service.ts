@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { AuthStateService } from '../state/auth-state.service';
-import {HttpError} from "../../../models/interfaces/utils/http-error.interface";
+import { AuthStateService } from '../../state/auth-state.service';
+import {HttpError} from "../../../../models/interfaces/utils/http-error.interface";
 
 @Injectable({
   providedIn: 'root'

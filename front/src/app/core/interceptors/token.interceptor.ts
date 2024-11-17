@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { TokenService } from "../services/utils/token.service";
+import { TokenService } from "../services/utils/auth/token.service";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
