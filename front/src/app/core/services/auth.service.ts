@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, from } from 'rxjs';
 import { environment } from "../../../environments/environment";
-import { AuthRequest, AuthResponse } from "../../models/interfaces/auth.interface";
+import { AuthRequest, AuthResponse } from "../../models/interfaces/utils/auth.interface";
 import { AuthStateService } from './auth-state.service';
 
 @Injectable({

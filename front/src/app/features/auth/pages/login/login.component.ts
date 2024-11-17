@@ -27,7 +27,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/admin/dashboard']).then(r => console.log(r));
         },
         error: (err: any) => {
           console.error('Error en login:', err);
