@@ -1,0 +1,19 @@
+@import 'leaflet/dist/leaflet.css';
+
+:host {
+  display: block;
+}
+
+#map {
+  height: 600px;  /* o el alto que prefieras */
+  width: 100%;
+  border-radius: 8px;
+  z-index: 0;
+}
+
+/* Asegúrate de que el contenedor padre también tenga altura */
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
