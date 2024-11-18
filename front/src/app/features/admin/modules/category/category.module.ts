@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoryRoutingModule } from './category-routing.module';
 import {CategoryComponent} from "./category.component";
+import {ObjectidPipe} from "../../../../shared/pipes/objectid.pipe";
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import {CategoryComponent} from "./category.component";
   ],
   imports: [
     CommonModule,
-    CategoryRoutingModule
+    CategoryRoutingModule,
+    ObjectidPipe
   ]
 })
 export class CategoryModule { }

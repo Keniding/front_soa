@@ -1,5 +1,110 @@
-<!-- src/app/features/dashboard/pages/activity/activity.component.html -->
-<div class="space-y-4">
-  <h2 class="text-2xl font-bold text-gray-800">Actividades</h2>
-  <!-- Contenido específico de actividades -->
+<!-- activity.component.html -->
+<div class="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 p-6 rounded-2xl">
+  <!-- Header -->
+  <div class="max-w-7xl mx-auto mb-8">
+    <h1 class="text-3xl font-bold text-white mb-2">Actividades</h1>
+    <p class="text-blue-100">Gestión de actividades de Provias Nacional</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-white"></div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="max-w-7xl mx-auto bg-red-100 border-l-4 border-red-500 p-4 mb-6 rounded-lg">
+    <div class="flex items-center">
+      <div class="flex-shrink-0">
+        <svg class="h-5 w-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p class="text-sm text-red-700">{{ error }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid de Actividades -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div *ngFor="let actividad of actividades"
+         class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300">
+      <!-- Barra decorativa superior -->
+      <div class="h-2 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700"></div>
+
+      <div class="p-6">
+        <!-- Header de la Card -->
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-bold text-blue-900">{{ actividad.nombre }}</h3>
+          <div class="flex items-center">
+            <span [class]="getEstadoClasses(actividad.estado)">
+              <svg class="inline-block h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="getEstadoIcon(actividad.estado)"/>
+              </svg>
+              {{ actividad.estado }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Descripción -->
+        <p class="text-gray-600 mb-4">{{ actividad.descripcion }}</p>
+
+        <!-- Barra de Progreso -->
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+          <div class="h-2.5 rounded-full transition-all duration-300"
+               [ngClass]="{
+                 'bg-yellow-500': actividad.estado === Estado.PENDIENTE,
+                 'bg-blue-500': actividad.estado === Estado.EN_PROGRESO,
+                 'bg-green-500': actividad.estado === Estado.COMPLETADA,
+                 'bg-red-500': actividad.estado === Estado.CANCELADA,
+                 'bg-emerald-500': actividad.estado === Estado.ACTIVO,
+                 'bg-gray-500': actividad.estado === Estado.FINALIZADO
+               }"
+               [style.width.%]="calcularProgreso(actividad)">
+          </div>
+        </div>
+
+        <!-- Fechas -->
+        <div class="space-y-2 mb-4">
+          <div class="flex items-center text-sm text-gray-500">
+            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <div class="flex flex-col">
+              <span>Inicio: {{ actividad.fechaInicio | date:'dd/MM/yyyy' }}</span>
+              <span>Fin: {{ actividad.fechaFin | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="flex space-x-3">
+          <button class="flex-1 px-4 py-2 text-sm font-medium text-blue-700 bg-blue-100 rounded-xl hover:bg-blue-200 transition-colors duration-200">
+            <span class="flex items-center justify-center">
+              <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Editar
+            </span>
+          </button>
+          <button class="flex-1 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-colors duration-200">
+            <span class="flex items-center justify-center">
+              <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+              Detalles
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón Flotante para Agregar -->
+  <button class="fixed bottom-8 right-8 p-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full shadow-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 transform hover:scale-110">
+    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+    </svg>
+  </button>
 </div>

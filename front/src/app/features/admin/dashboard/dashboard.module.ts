@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { SidebarModule } from '../../../shared/components/sidebar/sidebar.module';
-import {AdminModule} from "../admin.module";
+import { AdminModule } from "../admin.module";
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import {AdminModule} from "../admin.module";
   ],
   imports: [
     CommonModule,
+    RouterModule,
     DashboardRoutingModule,
     SidebarModule,
     AdminModule,

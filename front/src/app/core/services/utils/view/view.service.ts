@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ViewService {
-  private currentViewSubject = new BehaviorSubject<string>('activity');
+  private currentViewSubject = new BehaviorSubject<string>('activities');
   currentView$ = this.currentViewSubject.asObservable();
 
   changeView(view: string) {

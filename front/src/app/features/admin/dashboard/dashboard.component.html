@@ -1,4 +1,4 @@
-<!-- src/app/features/dashboard/dashboard.component.html -->
+<!-- src/app/features/admin/dashboard/dashboard.component.html -->
 <div class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
   <!-- Sidebar -->
   <app-sidebar></app-sidebar>
@@ -12,7 +12,13 @@
 
     <!-- Contenido dinámico -->
     <div class="bg-white rounded-xl shadow-md p-6">
-      <router-outlet></router-outlet>
+      <div [ngClass]="{'hidden': !currentView}">
+        <router-outlet></router-outlet>
+      </div>
+
+      <div *ngIf="!currentView" class="flex justify-center items-center h-64">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
     </div>
   </div>
 </div>

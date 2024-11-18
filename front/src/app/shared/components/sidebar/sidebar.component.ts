@@ -9,7 +9,6 @@ interface MenuItem {
   id: string;
   label: string;
   icon: string;
-  route: string;
 }
 
 interface MenuSection {
@@ -23,6 +22,7 @@ interface MenuSection {
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit, OnDestroy {
+  readonly BASE_ROUTE = '/admin/dashboard/';
   currentView: string = 'activities';
   private destroy$ = new Subject<void>();
 
@@ -30,30 +30,30 @@ export class SidebarComponent implements OnInit, OnDestroy {
     {
       title: 'SERVICIOS',
       items: [
-        { id: 'activities', label: 'Actividades', icon: 'fas fa-tasks', route: '/admin/activities' },
-        { id: 'projects', label: 'Proyectos', icon: 'fas fa-project-diagram', route: '/admin/projects' },
-        { id: 'milestones', label: 'Hitos', icon: 'fas fa-flag', route: '/admin/milestones' },
-        { id: 'posts', label: 'Publicaciones', icon: 'fas fa-newspaper', route: '/admin/posts' },
-        { id: 'minio', label: 'Archivos', icon: 'fas fa-folder', route: '/admin/minio' }
+        { id: 'activities', label: 'Actividades', icon: 'fas fa-tasks' },
+        { id: 'projects', label: 'Proyectos', icon: 'fas fa-project-diagram' },
+        { id: 'milestones', label: 'Hitos', icon: 'fas fa-flag' },
+        { id: 'posts', label: 'Publicaciones', icon: 'fas fa-newspaper' },
+        { id: 'minio', label: 'Archivos', icon: 'fas fa-folder' }
       ]
     },
     {
       title: 'GESTIÓN',
       items: [
-        { id: 'resources', label: 'Recursos', icon: 'fas fa-boxes', route: '/admin/resources' },
-        { id: 'staff', label: 'Personal', icon: 'fas fa-users', route: '/admin/staff' },
-        { id: 'suppliers', label: 'Proveedores', icon: 'fas fa-truck', route: '/admin/suppliers' },
-        { id: 'risks', label: 'Riesgos', icon: 'fas fa-exclamation-triangle', route: '/admin/risks' }
+        { id: 'resources', label: 'Recursos', icon: 'fas fa-boxes' },
+        { id: 'staff', label: 'Personal', icon: 'fas fa-users' },
+        { id: 'suppliers', label: 'Proveedores', icon: 'fas fa-truck' },
+        { id: 'risks', label: 'Riesgos', icon: 'fas fa-exclamation-triangle' }
       ]
     },
     {
       title: 'CONFIGURACIÓN',
       items: [
-        { id: 'categories', label: 'Categorías', icon: 'fas fa-tags', route: '/admin/categories' },
-        { id: 'locations', label: 'Ubicaciones', icon: 'fas fa-map-marker-alt', route: '/admin/locations' },
-        { id: 'users', label: 'Usuarios', icon: 'fas fa-user-cog', route: '/admin/users' },
-        { id: 'types', label: 'Tipos', icon: 'fas fa-list', route: '/admin/types' },
-        { id: 'roles', label: 'Roles', icon: 'fas fa-user-shield', route: '/admin/roles' }
+        { id: 'categories', label: 'Categorías', icon: 'fas fa-tags' },
+        { id: 'locations', label: 'Ubicaciones', icon: 'fas fa-map-marker-alt' },
+        { id: 'users', label: 'Usuarios', icon: 'fas fa-user-cog' },
+        { id: 'types', label: 'Tipos', icon: 'fas fa-list' },
+        { id: 'roles', label: 'Roles', icon: 'fas fa-user-shield' }
       ]
     }
   ];
@@ -89,13 +89,17 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  getRoute(item: MenuItem): string {
+    return `${this.BASE_ROUTE}${item.id}`;
+  }
+
   changeView(item: MenuItem) {
     try {
       this.viewService.changeView(item.id);
-      this.router.navigate([item.route], {
+      this.router.navigate([this.getRoute(item)], {
         replaceUrl: false
       }).then(() => {
-        console.log('Navegación exitosa a:', item.route);
+        console.log('Navegación exitosa a:', this.getRoute(item));
       }).catch(error => {
         console.error('Error en la navegación:', error);
       });
