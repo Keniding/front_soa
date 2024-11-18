@@ -23,6 +23,11 @@ const routes: Routes = [
         path: 'locations',
         loadChildren: () => import('../modules/location/location.module')
           .then(m => m.LocationModule)
+      },
+      {
+        path: 'risks',
+        loadChildren: () => import('../modules/risk/risk.module')
+          .then(m => m.RiskModule)
       }
     ]
   }

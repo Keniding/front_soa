@@ -9,16 +9,6 @@ const routes: Routes = [
       .then(m => m.DashboardModule)
   },
   {
-    path: 'activities',
-    loadChildren: () => import('./modules/activity/activity.module')
-      .then(m => m.ActivityModule)
-  },
-  {
-    path: 'categories',
-    loadChildren: () => import('./modules/category/category.module')
-      .then(m => m.CategoryModule)
-  },
-  {
     path: '',
     redirectTo: 'dashboard',
     pathMatch: 'full'

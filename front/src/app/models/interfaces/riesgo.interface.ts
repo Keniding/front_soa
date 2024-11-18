@@ -7,4 +7,6 @@ export interface Riesgo {
   descripcion: string;
   nivel: Nivel;
   planMitigacion: string;
+  probabilidad: number; // 1-5
+  impacto: number; // 1-5
 }
