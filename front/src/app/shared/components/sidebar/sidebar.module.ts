@@ -1,7 +1,9 @@
+// src/app/shared/components/sidebar/sidebar.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidebarRoutingModule } from './sidebar-routing.module';
+import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './sidebar.component';
+import {SidebarRoutingModule} from "./sidebar-routing.module";
 
 @NgModule({
   declarations: [
@@ -9,8 +11,9 @@ import { SidebarComponent } from './sidebar.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     SidebarRoutingModule,
   ],
   exports: [SidebarComponent]
 })
-export class SidebarModule {}
+export class SidebarModule { }

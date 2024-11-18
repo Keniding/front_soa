@@ -1,9 +1,10 @@
+// src/app/features/admin/dashboard/dashboard.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import { AdminModule } from '../admin.module';
-import {SidebarModule} from "../../../shared/components/sidebar/sidebar.module";
+import { SidebarModule } from '../../../shared/components/sidebar/sidebar.module';
+import {AdminModule} from "../admin.module";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import {SidebarModule} from "../../../shared/components/sidebar/sidebar.module";
     CommonModule,
     DashboardRoutingModule,
     SidebarModule,
-    AdminModule
+    AdminModule,
   ]
 })
 export class DashboardModule { }

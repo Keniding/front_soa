@@ -1,22 +1,32 @@
 <!-- Hero Section -->
-<div class="relative bg-gray-50">
-  <div class="relative bg-blue-900 h-[400px]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+<div class="relative">
+  <!-- Contenedor de imagen de fondo con overlay -->
+  <div class="relative h-[500px] bg-cover bg-center" style="background-image: url('assets/images/hero-road.png');">
+    <!-- Overlay azul semitransparente -->
+    <div class="absolute inset-0 bg-blue-900/75"></div>
+
+    <!-- Contenido -->
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 h-full flex items-center">
+      <div class="text-center w-full">
+        <!-- Logo del MTC -->
+        <img src="assets/images/mtc-logo-white.png" alt="MTC Logo" class="h-20 mx-auto mb-6">
+
+        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl drop-shadow-lg">
           PROVIAS NACIONAL
         </h1>
-        <p class="mt-3 max-w-md mx-auto text-base text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+        <p class="mt-3 max-w-md mx-auto text-base text-white sm:text-lg md:mt-5 md:text-xl md:max-w-3xl drop-shadow-md">
           Proyecto Especial de Infraestructura de Transporte Nacional
         </p>
-        <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+
+        <!-- Botones -->
+        <div class="mt-8 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
           <div class="rounded-md shadow">
-            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-900 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-900 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10 transition duration-300">
               Trámites en línea
             </a>
           </div>
           <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800 md:py-4 md:text-lg md:px-10">
+            <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800 md:py-4 md:text-lg md:px-10 transition duration-300">
               Consultas
             </a>
           </div>

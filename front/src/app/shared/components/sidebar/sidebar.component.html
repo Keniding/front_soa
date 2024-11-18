@@ -1,42 +1,40 @@
-<aside
-  class="bg-gradient-to-br from-gray-800 to-gray-900 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0"
->
-  <!-- Header del Sidebar -->
-  <div class="relative border-b border-white/20">
-    <a class="flex items-center gap-4 py-6 px-8" href="/src/app/features/public">
+<!-- src/app/shared/components/sidebar/sidebar.component.html -->
+<aside class="bg-gradient-to-br from-blue-900 to-blue-800 fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 shadow-xl flex flex-col">
+  <!-- Header (fijo) -->
+  <div class="relative border-b border-white/20 flex-shrink-0">
+    <a class="flex items-center gap-4 py-6 px-8" [routerLink]="['/dashboard']">
+      <img src="assets/images/mtc-logo-white.png" alt="MTC Logo" class="h-8 w-auto">
       <h6 class="text-base font-semibold leading-relaxed text-white">
-        Material Tailwind Dashboard
+        PROVIAS NACIONAL
       </h6>
     </a>
   </div>
 
-  <!-- Menú del Sidebar -->
-  <div class="m-4">
-    <ul class="mb-4 flex flex-col gap-1">
-      <li>
-        <button
-          class="py-3 px-4 w-full flex items-center gap-4 rounded-lg font-medium text-sm transition-all"
-          [ngClass]="{
-            'bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-blue-500/20': currentView === 'estadistica',
-            'bg-transparent text-gray-300': currentView !== 'estadistica'
-          }"
-          (click)="changeView('estadistica')"
-        >
-          <span>Dashboard</span>
-        </button>
-      </li>
-      <li>
-        <button
-          class="py-3 px-4 w-full flex items-center gap-4 rounded-lg font-medium text-sm transition-all"
-          [ngClass]="{
-            'bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-blue-500/20': currentView === 'producto',
-            'bg-transparent text-gray-300': currentView !== 'producto'
-          }"
-          (click)="changeView('producto')"
-        >
-          <span>Producto</span>
-        </button>
-      </li>
-    </ul>
+  <!-- Menú (scrolleable) -->
+  <div class="flex-1 overflow-y-auto overflow-x-hidden" style="scrollbar-width: thin;">
+    <!-- Contenedor con padding -->
+    <div class="p-4">
+      <ul class="mb-4 flex flex-col gap-1">
+        <ng-container *ngFor="let section of menuSections">
+          <li class="mt-4">
+            <span class="text-xs font-semibold text-gray-300 px-4">{{section.title}}</span>
+          </li>
+
+          <li *ngFor="let item of section.items">
+            <button
+              class="py-3 px-4 w-full flex items-center gap-4 rounded-lg font-medium text-sm transition-all"
+              [ngClass]="{
+                'bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-blue-500/20': isActiveView(item.id),
+                'bg-transparent text-gray-300 hover:bg-blue-700/30': !isActiveView(item.id)
+              }"
+              (click)="changeView(item)"
+            >
+              <i [class]="item.icon + ' w-5'"></i>
+              <span>{{item.label}}</span>
+            </button>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
   </div>
 </aside>

@@ -1,24 +1,18 @@
-<div class="min-h-screen bg-gray-50/50">
-  <!-- Sidebar que emite el evento viewChange -->
-   <app-sidebar
-  ></app-sidebar>
+<!-- src/app/features/dashboard/dashboard.component.html -->
+<div class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Contenido principal -->
   <div class="p-4 xl:ml-80">
-    <nav
-      class="block w-full max-w-full bg-transparent text-white shadow-none rounded-xl transition-all px-0 py-1"
-    >
-      <!-- Header -->
+    <!-- Header -->
+    <nav class="bg-white rounded-xl shadow-md mb-6 p-4">
       <app-header></app-header>
     </nav>
-    <!-- Contenido Principal -->
-    <div class="main-content">
-      <div class="content">
-        <div *ngIf="selectedView === 'estadistica'">
-          <h2>Dashboard</h2>
-        </div>
-        <div *ngIf="selectedView === 'producto'">
-          <h2>Productos</h2>
-        </div>
-      </div>
+
+    <!-- Contenido dinámico -->
+    <div class="bg-white rounded-xl shadow-md p-6">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

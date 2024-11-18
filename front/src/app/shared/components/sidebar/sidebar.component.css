@@ -1,0 +1,25 @@
+/* Estilos para el scrollbar minimalista */
+.overflow-y-auto {
+  /* Para Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}
+
+/* Para Chrome, Safari y otros */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 2px; /* Hacemos la barra más delgada */
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent; /* Fondo transparente */
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1); /* Barra muy sutil */
+  border-radius: 1px;
+}
+
+/* Solo mostrar el scrollbar cuando se hace hover sobre el área */
+.overflow-y-auto:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2); /* Un poco más visible al hover */
+}
