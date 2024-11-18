@@ -8,14 +8,32 @@ import { Router } from '@angular/router';
 })
 export class AuthStateService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  private initializedSubject = new BehaviorSubject<boolean>(false);
+
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
+  public initialized$ = this.initializedSubject.asObservable();
 
   constructor(private router: Router) {
-    this.isAuthenticatedSubject.next(!!localStorage.getItem('token'));
+    this.checkInitialAuth();
+  }
+  private async checkInitialAuth(): Promise<void> {
+    try {
+      const token = this.getToken();
+      this.isAuthenticatedSubject.next(!!token);
+    } catch (error) {
+      console.error('Error checking initial auth:', error);
+      this.clearToken();
+    } finally {
+      this.setInitialized(true);
+    }
   }
 
   public setAuthenticated(value: boolean): void {
     this.isAuthenticatedSubject.next(value);
+  }
+
+  public setInitialized(value: boolean): void {
+    this.initializedSubject.next(value);
   }
 
   public getToken(): string | null {
@@ -39,5 +57,11 @@ export class AuthStateService {
   public handleUnauthorized(): void {
     this.clearToken();
     this.router.navigate(['/auth/login']).then(r => console.log(r));
+  }
+
+  public reset(): void {
+    this.clearToken();
+    this.setInitialized(false);
+    this.checkInitialAuth().then(r => console.log(r));
   }
 }

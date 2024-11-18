@@ -2,8 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
-/*   { path: 'sidebar', loadChildren: () => import('./sidebar/sidebar.module').then(m => m.SidebarModule) }, */
+  { path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module')
+      .then(m => m.DashboardModule)
+  },
+  { path: 'sidebar',
+    loadChildren: () => import('../../shared/components/sidebar/sidebar.module')
+      .then(m => m.SidebarModule)
+  },
 ];
 
 @NgModule({
@@ -11,3 +17,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class AdminRoutingModule {}
+

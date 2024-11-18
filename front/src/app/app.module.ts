@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -6,7 +6,12 @@ import { CoreModule } from "./core/core.module";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { TokenInterceptor } from "./core/interceptors/token.interceptor";
 import { ErrorInterceptor } from "./core/interceptors/error.interceptor";
-import {HomeComponent} from "./public/home/home.component";
+import { HomeComponent } from "./public/home/home.component";
+import { AuthService } from './core/services/utils/auth/auth.service';
+
+export function initializeAuth(authService: AuthService) {
+  return () => authService.initializeAuth();
+}
 
 @NgModule({
   declarations: [
@@ -28,6 +33,13 @@ import {HomeComponent} from "./public/home/home.component";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true
+    },
+
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeAuth,
+      deps: [AuthService],
       multi: true
     }
   ],

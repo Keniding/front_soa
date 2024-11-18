@@ -20,18 +20,22 @@ export class AuthService {
   initializeAuth(): Promise<void> {
     return new Promise((resolve) => {
       const token = this.authStateService.getToken();
+      console.log('Token al inicializar:', token);
       if (token) {
         this.validateToken(token).subscribe({
           next: () => {
+            console.log('Token validado exitosamente');
             this.authStateService.setAuthenticated(true);
             resolve();
           },
-          error: () => {
+          error: (error) => {
+            console.log('Error validando token:', error);
             this.logout();
             resolve();
           }
         });
       } else {
+        console.log('No hay token almacenado');
         this.authStateService.setAuthenticated(false);
         resolve();
       }

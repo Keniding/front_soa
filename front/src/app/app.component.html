@@ -1,1 +1,8 @@
-<router-outlet />
+<ng-container *ngIf="shouldShowContent$ | async; else loading">
+  <router-outlet></router-outlet>
+</ng-container>
+<ng-template #loading>
+  <div class="loading-spinner">
+    <div class="spinner">Cargando...</div>
+  </div>
+</ng-template>
