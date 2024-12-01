@@ -1,0 +1,43 @@
+<!-- milestone.component.html -->
+<div class="container mx-auto px-4 py-8">
+  <!-- Encabezado -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Hitos del Proyecto</h1>
+    <p class="text-gray-600">Lista de hitos y actividades programadas</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="flex justify-center items-center h-64">
+    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+  </div>
+
+  <!-- Timeline -->
+  <div *ngIf="!loading" class="space-y-8">
+    <div *ngFor="let hito of hitos; let i = index"
+         class="relative flex items-start group">
+      <!-- Línea vertical -->
+      <div class="h-full w-0.5 absolute left-9 top-5 -bottom-8 bg-gray-200 -z-10"
+           *ngIf="i !== hitos.length - 1"></div>
+
+      <!-- Círculo indicador -->
+      <div class="flex items-center justify-center w-20 h-20 rounded-full bg-blue-100 shrink-0 relative z-10">
+        <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center">
+          <span class="text-white font-bold">{{i + 1}}</span>
+        </div>
+      </div>
+
+      <!-- Contenido del hito -->
+      <div class="ml-6 w-full">
+        <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-semibold text-gray-800">{{hito.nombre}}</h3>
+            <span class="text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+              {{formatDate(hito.fecha)}}
+            </span>
+          </div>
+          <p class="text-gray-600">{{hito.descripcion}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -33,7 +33,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
         { id: 'activities', label: 'Actividades', icon: 'fas fa-tasks' },
         { id: 'projects', label: 'Proyectos', icon: 'fas fa-project-diagram' },
         { id: 'milestones', label: 'Hitos', icon: 'fas fa-flag' },
-        { id: 'posts', label: 'Publicaciones', icon: 'fas fa-newspaper' },
+        { id: 'posts', label: 'Cargos', icon: 'fas fa-newspaper' },
         { id: 'minio', label: 'Archivos', icon: 'fas fa-folder' }
       ]
     },

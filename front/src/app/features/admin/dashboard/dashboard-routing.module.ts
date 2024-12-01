@@ -28,6 +28,11 @@ const routes: Routes = [
         path: 'risks',
         loadChildren: () => import('../modules/risk/risk.module')
           .then(m => m.RiskModule)
+      },
+      {
+        path: 'milestones',
+        loadChildren: () => import('../modules/milestone/milestone.module')
+          .then(m => m.MilestoneModule)
       }
     ]
   }
