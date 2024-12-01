@@ -14,20 +14,27 @@
   <!-- Timeline -->
   <div *ngIf="!loading" class="space-y-8">
     <div *ngFor="let hito of hitos; let i = index"
-         class="relative flex items-start group">
+         class="relative flex group">
       <!-- Línea vertical -->
-      <div class="h-full w-0.5 absolute left-9 top-5 -bottom-8 bg-gray-200 -z-10"
+      <div class="h-full w-0.5 absolute left-12 top-24 -bottom-8 bg-gray-200"
            *ngIf="i !== hitos.length - 1"></div>
 
-      <!-- Círculo indicador -->
-      <div class="flex items-center justify-center w-20 h-20 rounded-full bg-blue-100 shrink-0 relative z-10">
-        <div class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center">
-          <span class="text-white font-bold">{{i + 1}}</span>
+      <!-- Contenedor del círculo con centrado vertical -->
+      <div class="flex items-center">
+        <!-- Círculo indicador con efecto pulsating -->
+        <div class="relative flex items-center justify-center w-24 h-24">
+          <!-- Círculo exterior con animación -->
+          <div class="absolute w-24 h-24 rounded-full bg-blue-500/30 animate-pulse"></div>
+
+          <!-- Círculo interior con número -->
+          <div class="absolute w-20 h-20 rounded-full bg-blue-500 flex items-center justify-center">
+            <span class="text-white font-bold text-2xl">{{i + 1}}</span>
+          </div>
         </div>
       </div>
 
       <!-- Contenido del hito -->
-      <div class="ml-6 w-full">
+      <div class="ml-10 flex-1">
         <div class="p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
           <div class="flex justify-between items-start mb-4">
             <h3 class="text-xl font-semibold text-gray-800">{{hito.nombre}}</h3>

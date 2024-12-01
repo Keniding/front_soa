@@ -33,6 +33,11 @@ const routes: Routes = [
         path: 'milestones',
         loadChildren: () => import('../modules/milestone/milestone.module')
           .then(m => m.MilestoneModule)
+      },
+      {
+        path: 'posts',
+        loadChildren: () => import('../modules/post/post.module')
+          .then(m => m.PostModule)
       }
     ]
   }
