@@ -38,6 +38,11 @@ const routes: Routes = [
         path: 'posts',
         loadChildren: () => import('../modules/post/post.module')
           .then(m => m.PostModule)
+      },
+      {
+        path: 'resources',
+        loadChildren: () => import('../modules/resource/resource.module')
+          .then(m => m.ResourceModule)
       }
     ]
   }
