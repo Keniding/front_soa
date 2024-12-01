@@ -6,6 +6,7 @@ import {Hito} from "./hito.interface";
 import {Recurso} from "./recurso.interface";
 import {Riesgo} from "./riesgo.interface";
 import {Personal} from "./personal.interface";
+import {Tipo} from "./tipo.interface";
 
 export interface Proyecto {
   id: ObjectId;
@@ -24,5 +25,3 @@ export interface Proyecto {
   riesgos: Riesgo[];
 }
 
-export interface Tipo {
-}
