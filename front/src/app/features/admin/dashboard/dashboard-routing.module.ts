@@ -63,6 +63,11 @@ const routes: Routes = [
         path: 'types',
         loadChildren: () => import('../modules/type/type.module')
           .then(m => m.TypeModule)
+      },
+      {
+        path: 'roles',
+        loadChildren: () => import('../modules/rol/rol.module')
+          .then(m => m.RolModule)
       }
     ]
   }
