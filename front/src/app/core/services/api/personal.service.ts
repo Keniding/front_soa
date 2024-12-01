@@ -32,13 +32,13 @@ export class PersonalService {
       .pipe(map(response => response.data));
   }
 
-  updatePersonal(id: ObjectId, personal: Personal): Observable<Personal> {
+  updatePersonal(id: string, personal: Omit<Personal, "id">): Observable<Personal> {
     return this.http
       .put<ApiResponse<Personal>>(`${this.API_URL}/${id}`, personal)
       .pipe(map(response => response.data));
   }
 
-  deletePersonal(id: ObjectId): Observable<void> {
+  deletePersonal(id: string): Observable<void> {
     return this.http
       .delete<ApiResponse<void>>(`${this.API_URL}/${id}`)
       .pipe(map(response => response.data));

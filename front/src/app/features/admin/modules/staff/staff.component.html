@@ -1,0 +1,243 @@
+<div class="min-h-screen bg-gray-50">
+  <!-- Header con diseño mejorado -->
+  <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 px-4 mb-8">
+    <div class="container mx-auto">
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h1 class="text-4xl font-bold mb-2">Directorio de Personal</h1>
+          <p class="text-blue-100">Gestión de empleados y personal administrativo</p>
+        </div>
+        <button (click)="openCreateModal()"
+                class="bg-white text-blue-600 px-6 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors duration-300 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          Agregar Personal
+        </button>
+      </div>
+
+      <!-- Barra de búsqueda -->
+      <div class="max-w-xl">
+        <div class="relative">
+          <input type="text"
+                 [(ngModel)]="searchTerm"
+                 (input)="searchPersonal($event)"
+                 placeholder="Buscar personal..."
+                 class="w-full pl-12 pr-4 py-3 rounded-lg bg-white/10 backdrop-blur-sm border border-blue-400/30 text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 absolute left-3 top-3 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 pb-8">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="flex justify-center items-center py-12">
+      <div class="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+      <p class="font-medium">{{ error }}</p>
+    </div>
+
+    <!-- Staff Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div *ngFor="let persona of filteredPersonal"
+           class="group bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+
+        <!-- Card Header -->
+        <div class="bg-gradient-to-br from-blue-500 to-blue-700 px-6 py-6 rounded-t-xl">
+          <div class="flex items-center justify-center">
+            <div class="h-24 w-24 rounded-full bg-white p-1 shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <div class="h-full w-full rounded-full bg-gradient-to-br from-blue-100 to-white flex items-center justify-center">
+                <span class="text-3xl font-bold text-blue-600">
+                  {{ persona.nombre.charAt(0) }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Content -->
+        <div class="p-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-3 text-center">{{ persona.nombre }}</h3>
+
+          <div class="space-y-4">
+            <!-- Cargo -->
+            <div class="flex items-center text-gray-700 bg-blue-50 p-3 rounded-lg group-hover:bg-blue-100 transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <div class="flex flex-col">
+                <span class="font-medium">{{ persona.cargo.nombre }}</span>
+                <span class="text-sm text-gray-500">{{ persona.cargo.departamento }}</span>
+              </div>
+            </div>
+
+            <!-- Rango -->
+            <div class="flex items-center text-gray-700 bg-blue-50 p-3 rounded-lg group-hover:bg-blue-100 transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+              </svg>
+              <span [class]="'px-2 py-1 rounded-full text-sm font-medium ' + getRangoBadgeColor(persona.cargo.rango)">
+                {{ formatRango(persona.cargo.rango) }}
+              </span>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="flex items-center text-gray-700 hover:bg-blue-50 p-3 rounded-lg transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span class="font-medium">{{ persona.telefono }}</span>
+            </div>
+
+            <!-- Correo -->
+            <div class="flex items-center text-gray-700 hover:bg-blue-50 p-3 rounded-lg transition-colors duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span class="font-medium truncate">{{ persona.correo }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 rounded-b-xl">
+          <div class="flex justify-end space-x-3">
+            <button (click)="openEditModal(persona)"
+                    class="px-4 py-2 bg-white text-blue-600 border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-300 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+              Editar
+            </button>
+            <button (click)="deletePersonal(persona.id)"
+                    class="px-4 py-2 bg-white text-red-600 border border-red-600 rounded-lg hover:bg-red-50 transition-colors duration-300 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="showModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-xl shadow-xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div class="p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">
+          {{ modalMode === 'create' ? 'Agregar Personal' : 'Editar Personal' }}
+        </h2>
+
+        <!-- Modal Form -->
+        <form #personalForm="ngForm" (ngSubmit)="onSubmit(personalForm.value)" class="space-y-6">
+          <!-- Datos personales -->
+          <div class="space-y-4">
+            <h3 class="text-lg font-medium text-gray-900">Datos Personales</h3>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+              <input type="text"
+                     name="nombre"
+                     [ngModel]="selectedPersonal?.nombre"
+                     required
+                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+              <input type="tel"
+                     name="telefono"
+                     [ngModel]="selectedPersonal?.telefono"
+                     required
+                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Correo</label>
+              <input type="email"
+                     name="correo"
+                     [ngModel]="selectedPersonal?.correo"
+                     required
+                     class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            </div>
+          </div>
+
+          <!-- Información del cargo -->
+          <div class="space-y-4">
+            <h3 class="text-lg font-medium text-gray-900">Información del Puesto</h3>
+
+            <!-- Departamento y Cargo -->
+            <!-- Departamento Select -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Departamento</label>
+              <select #departamentoSelect
+                      [(ngModel)]="selectedDepartamento"
+                      name="departamento"
+                      (change)="onDepartamentoChange($event)"
+                      required
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Seleccione departamento</option>
+                <option *ngFor="let depto of departamentos" [value]="depto">
+                  {{ depto }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Cargo Select -->
+            <div class="mb-4">
+              <label class="block text-sm font-medium text-gray-700 mb-1">Cargo</label>
+              <select
+                name="cargoId"
+                [(ngModel)]="selectedCargoId"
+                (ngModelChange)="onCargoChange($event)"
+                required
+                [disabled]="!selectedDepartamento"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Seleccione cargo</option>
+                <option *ngFor="let cargo of getCargosForDepartamento()" [value]="cargo.id">
+                  {{ cargo.nombre }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Rango -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Rango</label>
+              <select name="rango"
+                      [ngModel]="selectedPersonal?.cargo?.rango"
+                      required
+                      class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Seleccione rango</option>
+                <option *ngFor="let rango of rangos" [value]="rango">
+                  {{ formatRango(rango) }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Botones -->
+          <div class="flex justify-end space-x-3 pt-6 border-t border-gray-200">
+            <button type="button"
+                    (click)="closeModal()"
+                    class="px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50">
+              Cancelar
+            </button>
+            <button type="submit"
+                    [disabled]="!personalForm.valid"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+              {{ modalMode === 'create' ? 'Agregar' : 'Guardar Cambios' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

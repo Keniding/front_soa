@@ -2,7 +2,7 @@ import { ObjectId } from 'mongodb';
 import {Rango} from "../enums/rango.enum";
 
 export interface Cargo {
-  id: ObjectId;
+  id: string;
   nombre: string;
   descripcion: string;
   rango: Rango;
