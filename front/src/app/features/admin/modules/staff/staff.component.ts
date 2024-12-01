@@ -24,7 +24,7 @@ export class StaffComponent implements OnInit {
   cargosPorDepartamento: { [key: string]: Cargo[] } = {};
 
   selectedDepartamento: string = '';
-  selectedCargoId: string = '';
+  selectedCargoId: ObjectId | string = '';
   selectedCargo: Cargo | null = null;
 
   onDepartamentoChange(event: any): void {
@@ -106,7 +106,7 @@ export class StaffComponent implements OnInit {
       next: (data) => {
         this.cargos = data.map(cargo => ({
           ...cargo,
-          id: String(cargo.id)
+          id: (cargo.id)
         }));
         this.organizarCargosPorDepartamento();
         console.log('Cargos cargados:', this.cargos);
@@ -165,7 +165,7 @@ export class StaffComponent implements OnInit {
         }
       });
     } else if (this.selectedPersonal && this.selectedPersonal.id) {
-      this.personalService.updatePersonal(this.selectedPersonal.id, personalData).subscribe({
+      this.personalService.updatePersonal(this.selectedPersonal.id.toString(), personalData).subscribe({
         next: (personal) => {
           console.log('Personal actualizado exitosamente:', personal);
           this.loadPersonal();
